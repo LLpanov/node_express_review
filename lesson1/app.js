@@ -180,3 +180,40 @@
 // reWrite()
 //
 //
+///////////////////////////////////////////////////////////////////////////Classwork////////////////////?
+
+// 1 1. Спробуйте створити якийсь файл txt, прочитайте з нього дані і
+// одразу, дані які ви отримали запишіть їх в інший файл, в вас вийде невеликий callback hell, пізніше я вам покажу
+// // як можна це обійти, але поки зробіть так
+
+const fs = require('fs');
+const path = require('path')
+
+// const CreateReadChange = async () => {
+// try {
+//     await fs.mkdir(path.join(__dirname, 'Cw'), (err) => {
+//         console.log(err)
+//     })
+//     await fs.writeFile(path.join(__dirname, 'Cw', 'text.txt'), 'some text', (err) => {
+//         console.log(err);
+//     })
+//     await fs.readFile(path.join(__dirname,'Cw', 'text.txt'),(err,data)=>{
+//         console.log(err);
+//         fs.writeFile(path.join(__dirname,'Cw', 'text2.txt'),`${data}`,(err)=>{
+//             console.log(err)
+//         })
+//         fs.rmdir
+//     })
+//
+// }catch (e) {
+//     throw e
+//
+// }
+//
+// }
+// CreateReadChange().then();
+// 2.2. Створіть файл ( можете вручну ) заповніть його якимись даними
+// Прочитайте його, скопіюйте всі дані з нього
+// і перенесіть їх в нову папку та файл в ній, старий файл видаліть після того як все завершиться. Також вийде callback hell
+
+
