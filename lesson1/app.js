@@ -1,8 +1,8 @@
-const path = require('path');
-// const os = require('os');
+// const path = require('path');
+// // const os = require('os');
 //
-// const joinePath = path.join(__dirname,'test', 'test2', 'files', 'public');
-// console.log(joinePath);
+// const joinedPath = path.join(__dirname,'test', 'test2', 'files', 'public');
+// console.log(joinedPath);
 
 // const norman = path.normalize('test//files/\/public//text.txt');
 // console.log(norman,'normalize')
@@ -13,7 +13,7 @@ const path = require('path');
 // console.log(os.cpus().length);
 // console.log(os.arch());
 
-const fs = require('fs');
+// const fs = require('fs');
 // fs.writeFileSync(path.join(__dirname, 'files', 'file.txt'), 'some data');
 // fs.writeFile(path.join(__dirname, 'files', 'file2.txt'),'some data2',(err)=>{
 //     if(err){
@@ -66,3 +66,117 @@ const fs = require('fs');
 // //         throw err;
 // //     }
 // // })
+
+// ____________________________________________________________HOMEWORKER_________________________________________
+// Homework 1
+// // //
+// // //     Всі дії виконувати з допомогою модулів (вручну нічого не створюємо)
+// // // Створити основну папку (main), в яку покласти дві інші папки: перша - online, друга - inPerson
+// // // Потім створити в вашому головному файлі (для прикладу app.js) два масиви з обєктами user
+// // // ({. name: "Andrii", age: 22, city: "Lvov" }),  відповідно перший - onlineUsers, другий - inPersonUsers;
+// // // і створити файли txt в папках (online, inPerson) в яких як дату покласти юзерів з ваших масивів,
+// // // але щоб ваш файл виглядав як NAME: ім'я з обєкту і т.д і всі пункти з нового рядка.
+// // //
+// // // Коли ви це виконаєте напишіть функцію яка буде міняти місцями юзерів з одного файлу і папки в іншу.
+// // // (ті, що були в папці inPerson будуть в папці online)
+// //
+
+// Всі дії виконувати з допомогою модулів (вручну нічого не створюємо)
+// // // Створити основну папку (main), в яку покласти дві інші папки: перша - online, друга - inPerson
+//
+// const path = require('path');
+// const fs = require('fs');
+//
+// const create = () => {
+//     fs.mkdir(path.join(__dirname, 'Hm','main', 'online'), {recursive: true}, (err) => {
+//         if (err) {
+//             console.log(err);
+//             throw err
+//         }
+//         fs.mkdir(path.join(__dirname, 'Hm','main', 'inPerson'), (err) => {
+//                 if (err) {
+//                     console.log(err);
+//                     throw err;
+//                 }
+//             }
+//         );
+//     });
+// }
+// create()
+
+// Потім створити в вашому головному файлі (для прикладу app.js) два масиви з обєктами user
+// // // ({. name: "Andrii", age: 22, city: "Lvov" }),  відповідно перший - onlineUsers, другий - inPersonUsers;
+// // // і створити файли txt в папках (online, inPerson) в яких як дату покласти юзерів з ваших масивів,
+// // // але щоб ваш файл виглядав як NAME: ім'я з обєкту і т.д і всі пункти з нового рядка.
+//
+// const onlineUsers = [{name: "Andrii", age: 22, city: "Lvov"}];
+// const inPersonUsers = [{name: "Vasya", age: 23, city: "Kyiv"}];
+//
+// //
+// String.prototype.firstLetterToUppercase = function() {
+//     return this[0].toUpperCase() + this.slice(1);
+// }
+//
+// async function FileApend () {
+// await onlineUsers.forEach(user => {
+//     for (let value in user) {
+//      fs.appendFile(path.join(__dirname,'Hm','main','online','file.txt'),`\n${value.firstLetterToUppercase()}---${user[value]}`,(err)=>{
+//           if (err){
+//               console.log(err)
+//               throw err
+//           }
+//       })
+//
+//     }
+// });
+//      inPersonUsers.forEach(user => {
+//         for (let value in user) {
+//             fs.appendFile(path.join(__dirname,'Hm','main','inPerson','file2.txt'),`\n${value.firstLetterToUppercase()}---${user[value]}`,(err)=>{
+//                 if (err){
+//                     console.log(err)
+//                     throw err
+//                 }
+//             })
+//
+//         }
+//     });
+//
+//
+// };
+//
+// FileApend().then()
+
+// Коли ви це виконаєте напишіть функцію яка буде міняти місцями юзерів з одного файлу і папки в іншу.
+// // // (ті, що були в папці inPerson будуть в папці online)
+// //
+// const reWrite = () => {
+//
+//     fs.readFile(path.join(__dirname, 'Hm', 'main', 'inPerson', 'file2.txt'), (error, data1) => {
+//         if (error) {
+//             console.log(error)
+//             throw error
+//         }
+//         fs.readFile(path.join(__dirname, 'Hm',  'main', 'online', 'file.txt'), (error, data2) => {
+//             if (error) {
+//                 console.log(error)
+//                 throw error
+//             }
+//             fs.writeFile(path.join(__dirname,  'Hm', 'main', 'online', 'file.txt'), data1, error => {
+//                 if (error) {
+//                     console.log(error)
+//                     throw error
+//                 }
+//             })
+//             fs.writeFile(path.join(__dirname, 'Hm', 'main', 'inPerson', 'file2.txt'), data2, error => {
+//                 if (error) {
+//                     console.log(error)
+//                     throw error
+//                 }
+//             })
+//         })
+//     })
+//
+// }
+// reWrite()
+//
+//
