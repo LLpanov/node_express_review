@@ -187,7 +187,7 @@
 // // як можна це обійти, але поки зробіть так
 
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
 
 // const CreateReadChange = async () => {
 // try {
@@ -212,8 +212,114 @@ const path = require('path')
 //
 // }
 // CreateReadChange().then();
+
+
 // 2.2. Створіть файл ( можете вручну ) заповніть його якимись даними
 // Прочитайте його, скопіюйте всі дані з нього
 // і перенесіть їх в нову папку та файл в ній, старий файл видаліть після того як все завершиться. Також вийде callback hell
 
 
+// const CreateReadDeleted = () => {
+//
+//     fs.mkdir(path.join(__dirname, 'Cw', 'file'), (err) => {
+//         if (err) {
+//             console.log(err);
+//             throw err;
+//         }
+//         fs.writeFile(path.join(__dirname, 'Cw', 'file', 'new.txt'), 'bla-bla-bla', (err) => {
+//             if (err) {
+//                 console.log(err);
+//                 throw err;
+//             }
+//             fs.readFile(path.join(__dirname, 'Cw', 'file', 'new.txt'), 'utf8', (err, data) => {
+//                 if (err) {
+//                     console.log(err);
+//                     throw err;
+//                 }
+//                 fs.mkdir(path.join(__dirname, 'Cw', 'newfile'), (err) => {
+//
+//                     if (err) {
+//                         console.log(err);
+//                         throw err;
+//                     }
+//                     fs.writeFile(path.join(__dirname, 'Cw', 'newfile', 'new2.txt'), `${data}`, (err) => {
+//                         if (err) {
+//                             console.log(err);
+//                             throw err;
+//                         }
+//                         fs.unlink(path.join(__dirname, 'Cw', 'file', 'new.txt'), (err) => {
+//                             console.log(err);
+//                             throw err;
+//                         })
+//
+//                     });
+//                 });
+//             });
+//         });
+//     });
+// }
+//
+// CreateReadDeleted();
+
+// 3. Створіть папку (можете вручну) напишіть скріпт який створить в ній якись дані
+// (можуть бути нові папки і файли(в файли запишіть якусь дату) )
+// і напишіть функцію яка буде зчитувати папку і перевіряти якщо дані які в ній лежать - це файли
+// тоді вам потрібно їх очистити, але не видаляти, якщо дані - це папки,
+//     вам потрібно їх перейменувати і додати до назви префікс _new
+//
+// const CreateFolderFile = () => {
+//     fs.mkdir(path.join(__dirname, 'Cw', 'folder','emptyfolder'), {recursive: true}, (err) => {
+//         if (err) {
+//             console.log(err);
+//             throw err;
+//         }
+//             for (let i = 0; i < 10; i++) {
+//                 fs.appendFile(path.join(__dirname, 'Cw', 'folder', 'some.txt'), '\nget lost', (err) => {
+//                     if (err) {
+//                         console.log(err);
+//                         throw err;
+//                     }
+//                 })
+//             }
+//
+//     });
+//
+// }
+// CreateFolderFile()
+//
+// const checkStatus = () => {
+//     fs.readdir(path.join(__dirname, 'Cw', 'folder'), (err, data) => {
+//         if (err) {
+//             console.log(err);
+//             throw err;
+//         }
+//         for (const file of data) {
+//             fs.stat(path.join(__dirname, 'Cw', 'folder', `${file}`), (err, stats) => {
+//                     console.log(file);
+//
+//                 if (stats.isFile()) {
+//
+//                    fs.truncate(path.join(__dirname, 'Cw', 'folder', `${file}`), (err,) => {
+//                         if (err) {
+//                             console.log(err);
+//                             throw err;
+//                         }
+//
+//                             });
+//                         }  else if(stats.isDirectory()) {
+//                             fs.rename(path.join(__dirname, 'Cw', 'folder', `${file}`), path.join(__dirname, 'Cw', 'folder', `_new_${file}`), (err) => {
+//                                 if (err) {
+//                                     console.log(err);
+//                                     throw err;
+//                                 }
+//
+//                     });
+//                 }
+//
+//             })
+//         }
+//     });
+// }
+// checkStatus();
+//
+//
