@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <style>
+        input{
+            height: 30px;
+            border-radius: 5px;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            row-gap: 10px;
+            justify-content: center;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+        .btn{
+            background: cadetblue;
+            font-size: large;
+            cursor: pointer;
+            width: 50%;
+        }
+        body{
+            background-color: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+<div class='container'>
+    <form action="/login" method="post">
+        <input type="text" name="firstName" placeholder="name">
+        <input type="text" name="lastName" placeholder="last name">
+        <input type="text" name="age" placeholder="age">
+        <input type="text" name="password" placeholder="password">
+        <input style="background: lightgreen" type="text" name="email" placeholder="@email">
+        <input type="text" name="city" placeholder="city">
+
+        <input class="btn" type="submit" value="надіслати">
+    </form>
+</div>
+
+
+</body>
+</html>

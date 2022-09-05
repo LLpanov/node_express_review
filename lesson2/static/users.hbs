@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Users</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+            background: cornflowerblue;
+            width: 50%;
+            margin: 40px 40px;
+            padding: .5rem;
+            font-weight: bold;
+        }
+        hr{
+            width: 100%;
+            border: solid 1px black;
+        }
+        .btn{
+            padding: 10px 50px;
+            cursor: pointer;
+            background-color: antiquewhite;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    {{#each users}}
+        <div>Name: {{this.firstName}}</div>
+        <div>LastName: {{this.lastName}}</div>
+        <div>Email: {{this.email}}</div>
+        <form action="/users/{{this.id}}" method="get">
+            <input class="btn" type="submit" value="Info">
+        </form>
+        <hr>
+    {{/each}}
+</div>
+
+</body>
+</html>
