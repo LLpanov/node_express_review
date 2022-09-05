@@ -1,0 +1,4 @@
+
+Name---Vasya
+Age---23
+City---Kyiv
