@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .box {
+            display: flex;
+            justify-content: center;
+            margin-top: 100px;
+        }
+        .wrap {
+            display: flex;
+            flex-direction: column;
+            font-weight: bold;
+            font-size: 25px;
+            width: 25%;
+            background-color: cadetblue;
+            gap: 10px;
+            padding: .6rem;
+        }
+        .button {
+            background-color: cornflowerblue;
+            padding: 10px 30px;
+            font-size: large;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="box">
+<div class="wrap">
+    <div>UserId: {{user.id}}</div>
+    <div>Name: {{user.firstName}}</div>
+    <div>LastName: {{user.lastName}}</div>
+    <div>Age: {{user.age}}</div>
+    <div>Password: {{user.password}}</div>
+    <div>Email: {{user.email}}</div>
+    <div>City: {{user.city}}</div>
+    <form action="/users/{{user.id}}" method="post">
+        <button class="button">Delete</button>
+    </form>
+</div>
+</body>
+</html>

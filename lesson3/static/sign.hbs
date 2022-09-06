@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <style>
+        body {
+            background-color: cornflowerblue;
+        }
+        form {
+            row-gap: 20px;
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+            justify-content: center;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+        input {
+            height: 30px;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 200;
+            line-height: 1.5;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #bdbdbd;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        .btn {
+            cursor: pointer;
+            background-color: aqua;
+            font-size: large;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form action="/signIn " method="post">
+        <h2>Sign in</h2>
+        <label>
+            <input type="text" name="email" placeholder="@email">
+        </label>
+        <label>
+            <input type="text" name="password" placeholder="password">
+        </label>
+        <input class="btn" type="submit" value="Sign">
+    </form>
+</div>
+
+
+</form>
+
+</body>
+</html>
