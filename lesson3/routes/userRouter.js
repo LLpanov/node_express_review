@@ -1,24 +1,11 @@
 const {Router} = require('express');
-const users = require('../db/users');
+const {userController} = require("../controllers");
+const {userMiddleware} = require("../middleware");
+
 const userRouter = Router();
 
-userRouter.get('/', ({query}, res) => {
-    if (Object.keys(query).length) {
-        let usersArray = [...users];
-        if (query.city) {
-            usersArray = usersArray.filter(user => user.city === query.city);
-        }
-
-        if (query.age) {
-            usersArray = usersArray.filter(user => user.age === query.age);
-        }
-
-        res.render('users', {users: usersArray});
-        return;
-
-    }
-
-    res.render('users', {users});
-});
+userRouter.get('/', userController.renderUsers);
+userRouter.get('/:userId', userMiddleware, userController.getById);
+userRouter.post('/:userId', userController.deleteById);
 
 module.exports = userRouter;
