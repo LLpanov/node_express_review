@@ -1,19 +1,15 @@
 import express from 'express';
+import 'reflect-metadata';
 import { users } from './users';
-// import { AppDataSource } from './data-source';
-//
-// AppDataSource
-//     .initialize()
-//     .then(() => {
-//         console.log('Data Source has been initialized!');
-//     })
-//     .catch((err) => {
-//         console.error('Error during Data Source initialization:', err);
-//     });
+import myDataSource from './data-source';
 
-const app = express();
-console.log(users);
+myDataSource.initialize().then(() => {
+    const app = express()
+    app.use(express.json());
+    console.log(users);
+    return app.listen(3005, () => {
+        console.log('server has started🖖🖖🖖');
+    });
+})
 
-app.listen(3005, () => {
-    console.log('server has started🖖🖖🖖');
-});
+

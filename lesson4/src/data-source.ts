@@ -1,24 +1,18 @@
 import { DataSource } from 'typeorm';
 
-export const myDataSource = new DataSource({
+ const myDataSource = new DataSource({
     type: 'mysql',
     host: 'localhost',
     port: 3306,
     username: 'root',
     password: 'root',
-    database: 'okten_express',
-    synchronize: false,
+    database: 'express_okten',
+    synchronize: true,
+    migrationsRun: true,
     logging: false,
-    entities: ['src/entity/**/*.ts'],
+    entities: [],
     subscribers: [],
-    migrations: ['src/migrations/**/*.ts'],
+    migrations: ['src/migrations/**/*{.ts,.js}'],
 
 });
-
-myDataSource.initialize()
-    .then(() => {
-        console.log('Data Source has been initialized!');
-    })
-    .catch((err) => {
-        console.error('Error during Data Source initialization', err);
-    });
+export default myDataSource;
