@@ -1,3 +1,5 @@
+//Настройка Es lint , typeorm ,tsconfig.json,package.json scripts,підключення до бази Mysql
+
 import express from 'express';
 import 'reflect-metadata';
 import { users } from './users';
