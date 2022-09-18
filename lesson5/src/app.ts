@@ -12,18 +12,57 @@
 // action(like, dislike) і оновлювати в бд інформацію про кількість лайків і дизлайків в коментарі
 
 import 'reflect-metadata';
-import express from 'express';
-import { createConnection } from 'typeorm';
+import express, { Request, Response } from 'express';
+import { createConnection, getManager } from 'typeorm';
+import { User } from './entity/user';
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/users', async (req: Request, res: Response) => {
+    const users = await getManager()
+        .getRepository(User)
+        .find({ relations: ['posts'] });
+    res.json(users);
+});
 
 // app.get('/users', async (req: Request, res: Response) => {
-//     // await getManager().getRepository()
-//     // res.end();
+//     const getOneUser = await getManager()
+//         .getRepository(User)
+//         .findOne({
+//             where: { firstName: 'Angelo' },
+//         });
+//     res.json(getOneUser);
 // });
 
+app.post('/users', async (req, res) => {
+    const createdUser = await getManager().getRepository(User).save(req.body);
+    res.json(createdUser);
+});
+
+app.put('/users/:id', async (req, res) => {
+    const [password, email] = req.body;
+    const updateUser = await getManager().getRepository(User).update(
+        { id: Number(req.params.id) },
+        {
+            password, email,
+        },
+    );
+    res.json(updateUser);
+});
+// app.delete('/users/:id', async (req: Request, res: Response) => {
+//     const deleteUsers = await getManager()
+//         .getRepository(User)
+//         .delete({ id: Number(req.body.id) });
+//     res.json(deleteUsers);
+// });
+app.delete('/users/:id', async (req: Request, res: Response) => {
+    const deleteUsers = await getManager()
+        .getRepository(User)
+        .softDelete({ id: Number(req.body.id) });
+    res.json(deleteUsers);
+});
 app.listen(1111, async () => {
     console.log('Serves has started on PORT: http://localhost:1111');
     try {
