@@ -16,6 +16,7 @@ import express, { Request, Response } from 'express';
 import { createConnection, getManager } from 'typeorm';
 import { User } from './entity/user';
 import { Post } from './entity/post';
+import { Comment } from './entity/comments';
 
 const app = express();
 app.use(express.json());
@@ -33,7 +34,7 @@ app.get('/posts', async (reg:Request, res:Response) => {
     const posts = await getManager().getRepository(Post).find({ relations: ['comments'] });
     res.json(posts);
 });
-// get Post by id
+// get Post by userId
 app.get('/posts/:userId', async (req, res) => {
     const postById = await getManager()
         .getRepository(Post)
@@ -41,12 +42,38 @@ app.get('/posts/:userId', async (req, res) => {
     res.json(postById);
 });
 
+// update posts column text
 app.put('/posts/:userId', async (req, res) => {
     const { text } = req.body;
     const updatePost = await getManager()
         .getRepository(Post)
         .update({ userId: Number(req.params.userId) }, { text });
     res.json(updatePost);
+});
+// get all comments
+
+app.get('/comments', async (req, res) => {
+    const comments = await getManager().getRepository(Comment).find();
+    res.json(comments);
+});
+
+// Find comment by user
+
+// app.get('/comments/:authorId', async (req, res) => {
+//     const commentsById = await getManager().getRepository(Comment)
+//         .find({ authorId: Number(req.params.authorId) });
+//     res.json(commentsById);
+// });
+// find comments by user query
+
+app.get('/comments/:userId', async (req, res) => {
+    const queryCommentsById = await getManager()
+        .getRepository(Comment)
+        .createQueryBuilder('comment')
+        .where('comment.authorId = :id', { id: +req.params.userId })
+        .leftJoinAndSelect('comment.user', 'user')
+        .getMany();
+    res.json(queryCommentsById);
 });
 // знайти юзера з певним параметром вказуэм у where
 // app.get('/users', async (req: Request, res: Response) => {
@@ -82,6 +109,24 @@ app.delete('/posts/:userId', async (req, res) => {
         .delete({ userId: Number(req.params.userId) });
     res.json(deletePost);
 });
+// action like dislike
+app.post('/comments/action', async (req, res) => {
+    const { action, commentId } = req.body;
+    const queryRunner = getManager().getRepository(Comment);
+    const comment = await queryRunner.createQueryBuilder('comment')
+        .where('comment.id = :id', { id: commentId }).getOne();
+
+    if (!comment) {
+        throw new Error('wrong comment id');
+    }
+    if (action === 'like') {
+        await queryRunner.update({ id: commentId }, { like: comment.like + 1 });
+    }
+    if (action === 'dislike') {
+        await queryRunner.update({ id: commentId }, { dislike: comment.dislike + 1 });
+    }
+    res.sendStatus(201);
+});
 
 // Delete users in base
 
@@ -92,7 +137,7 @@ app.delete('/posts/:userId', async (req, res) => {
 //     res.json(deleteUsers);
 // });
 
-// Delete users and save his information in base
+// Delete users and save his information in base(softDelete)
 
 app.delete('/users/:id', async (req: Request, res: Response) => {
     const deleteUsers = await getManager()
