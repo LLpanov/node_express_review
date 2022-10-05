@@ -53,7 +53,7 @@ export class User extends CommonFields implements IUser {
         type: 'varchar',
         width: 255,
         nullable: false,
-        unique: true,
+        unique: false,
 
     })
         email: string;

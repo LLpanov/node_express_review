@@ -25,7 +25,8 @@
             }
         ],
         "class-methods-use-this": "off",
-        "no-unused-vars": ["error",{"args": "none"}]
+        "no-unused-vars": ["error",{"args": "none"}],
+        "no-underscore-dangle": "off"
     },
     "settings": {
         "import/resolver" : {
