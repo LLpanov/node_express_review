@@ -13,6 +13,7 @@ export class CreateTableUsers1645472767107 implements MigrationInterface {
                 password VARCHAR(255) NOT NULL,
                 createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
                 deletedAt TIMESTAMP
+       
             )
         `);
     }

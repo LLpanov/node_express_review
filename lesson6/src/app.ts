@@ -9,8 +9,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(apiRouter);
 
-app.listen(7777, async () => {
-    console.log('Serves has started on PORT: http://localhost:7777');
+const { PORT } = process.env;
+
+app.listen(process.env.PORT, async () => {
+    console.log(`Serves has started on Port : ${PORT}`);
     try {
         const connection = await createConnection();
         if (connection) {

@@ -21,6 +21,7 @@ class CommentRepository extends Repository<Comment> implements ICommentRepositor
             .getMany();
     }
 
+    // eslint-disable-next-line consistent-return
     public async getLikeDislike(commentId:number, action:string)
         :Promise<undefined|UpdateResult|Error> {
         try {
