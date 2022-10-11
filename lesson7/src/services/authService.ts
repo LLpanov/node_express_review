@@ -1,7 +1,7 @@
 import { userService } from './userService';
-import { IUser } from '../entity/user';
+import { IUser } from '../entity';
 import { tokenService } from './tokenService';
-import { ITokenData } from '../interfaces/token.interface';
+import { ITokenData } from '../interfaces';
 
 class AuthService {
     public async registration(body:IUser):Promise<ITokenData> {
