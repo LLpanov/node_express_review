@@ -9,15 +9,23 @@ class UserController {
         return res.json(createdUser);
     }
 
+    public async getUserById(req:Request, res:Response):Promise<Response<IUser>> {
+        const { id } = req.params;
+        const getOneUser = await userService.getUserById(+id);
+        return res.json(getOneUser);
+    }
+
+    public async getUsersByEmail(req:Request, res:Response):Promise<Response<IUser>> {
+        console.log(req.params);
+        const { email } = req.params;
+        console.log(email);
+        const userByEmail = await userService.getUserByEmail(email);
+        return res.json(userByEmail);
+    }
+
     public async getAlluser(req:Request, res:Response):Promise<Response <IUser[]>> {
         const getAllusers = await userService.getAlluser();
         return res.json(getAllusers);
-    }
-
-    public async getUserById(req:{params:{id:number}}, res:Response):Promise<Response<IUser>> {
-        const id = Number(req.params.id);
-        const getOneUser = await userService.getUserById(id);
-        return res.json(getOneUser);
     }
 
     public async updateUserById(req:Request, res:Response):Promise<Response<UpdateResult>> {
@@ -31,12 +39,6 @@ class UserController {
         const { id } = req.params;
         const deleteUser = await userService.deleteByUserId(+id);
         return res.json(deleteUser);
-    }
-
-    public async getUsersByEmail(req:Request, res:Response):Promise<Response<IUser>> {
-        const { email } = req.params;
-        const userByEmail = await userService.getUserByEmail(email);
-        return res.json(userByEmail);
     }
 }
 

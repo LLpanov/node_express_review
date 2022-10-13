@@ -43,7 +43,7 @@ class UserRepository extends Repository<User> implements IUserRepository {
         return getManager()
             .getRepository(User)
             .createQueryBuilder('user')
-            .where('user.email= :email', { email })
+            .where('user.email=:email', { email })
             .andWhere('user.deletedAt IS NULL')
             .getOne();
     }

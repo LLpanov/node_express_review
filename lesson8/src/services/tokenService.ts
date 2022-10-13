@@ -51,6 +51,10 @@ config.SECRET_REFRESH_KEY as string,
 
         return jwt.verify(authToken, secretWord as string)as IUserPayload;
     }
+
+    async deleteTokenPairByParams(object:Partial<IToken>) {
+        return tokenRepository.deleteByParams(object);
+    }
 }
 
 export const tokenService = new TokenService();

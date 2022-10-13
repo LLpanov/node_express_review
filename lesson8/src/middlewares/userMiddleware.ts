@@ -12,11 +12,11 @@ class UserMiddleware {
                 return;
             }
             req.user = userFromDB;
+            next();
         } catch (e) {
             res.status(400)
                 .json(e);
         }
-        next();
     }
 }
 
