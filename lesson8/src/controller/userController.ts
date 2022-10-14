@@ -16,9 +16,7 @@ class UserController {
     }
 
     public async getUsersByEmail(req:Request, res:Response):Promise<Response<IUser>> {
-        console.log(req.params);
         const { email } = req.params;
-        console.log(email);
         const userByEmail = await userService.getUserByEmail(email);
         return res.json(userByEmail);
     }
