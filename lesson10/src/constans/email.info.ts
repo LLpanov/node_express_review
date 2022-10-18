@@ -1,16 +1,17 @@
-import { emailActionEnum } from './enums';
+import { EmailActionEnum } from './enums';
 
 export const emailInfo = {
-    [emailActionEnum.WELCOME_UTENOK]: {
+    [EmailActionEnum.WELCOME_UTENOK]: {
         subject: 'Welcome Utenok',
-        html: 'hello on the platform Utenok',
+        templateName: 'welcome',
     },
-    [emailActionEnum.DELETE_ACCOUNT]: {
+    [EmailActionEnum.DELETE_ACCOUNT]: {
         subject: 'Your account was deleted',
-        html: 'goodbye utenok',
+        templateName: 'welcome',
     },
-    [emailActionEnum.REGISTER_ON_THE_PLATFORM]: {
+    [EmailActionEnum.REGISTER_ON_THE_PLATFORM]: {
         subject: 'Welcome my dear friend',
-        html: 'good day all day',
+        templateName: 'welcome',
+
     },
 };

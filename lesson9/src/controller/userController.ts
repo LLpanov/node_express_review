@@ -4,12 +4,12 @@ import { IUser } from '../entity';
 import { userService } from '../services';
 import { IRequestExtended } from '../interfaces';
 import { emailService } from '../services/emailSevice';
-import { emailActionEnum } from '../constans';
+import { EmailActionEnum } from '../constans';
 
 class UserController {
     public async createUser(req:IRequestExtended, res:Response):Promise<Response<IUser>> {
         const { email } = req.body;
-        await emailService.sendEmail(email, emailActionEnum.REGISTER_ON_THE_PLATFORM);
+        await emailService.sendEmail(email, EmailActionEnum.REGISTER_ON_THE_PLATFORM);
         const createdUser = await userService.createUser(req.body);
         return res.json(createdUser);
     }

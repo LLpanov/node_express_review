@@ -3,6 +3,8 @@ import express from 'express';
 import { createConnection } from 'typeorm';
 import { apiRouter } from './router';
 
+export const rootDir = __dirname;
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -1,10 +1,22 @@
-import nodemailer from 'nodemailer';
+import path from 'path';
+import EmailTemplate from 'email-templates';
+import nodemailer, { SentMessageInfo } from 'nodemailer';
+
+import { rootDir } from '../app';
 import { config } from '../config';
-import { emailActionEnum, emailInfo } from '../constans';
+import { EmailActionEnum, emailInfo } from '../constans';
 
 class EmailService {
-    sendEmail(userEmail:string, action:emailActionEnum) {
-        const { subject, html } = emailInfo[action];
+    async sendEmail(userEmail:string, action:EmailActionEnum, context = {})
+        :Promise<SentMessageInfo> {
+        const { subject, templateName } = emailInfo[action];
+
+        const templateRenderer = new EmailTemplate({
+            views: {
+                root: path.join(rootDir, 'email-templates'),
+            },
+        });
+
         const emailTransport = nodemailer.createTransport({
             from: 'express_okten',
             to: userEmail,
@@ -14,6 +26,10 @@ class EmailService {
                 pass: config.ROOT_PASSWORD,
             },
         });
+
+        Object.assign(context, { frontendUrl: 'https://google.com.ua' });
+
+        const html = await templateRenderer.render(templateName, context);
 
         return emailTransport.sendMail({
             to: userEmail,
