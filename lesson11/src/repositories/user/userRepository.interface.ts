@@ -13,4 +13,9 @@ export interface IUserRepository{
     deleteUserById(id: number): Promise<DeleteResult>;
 
     getUserByEmail(email: string): Promise<IUser | undefined>;
+
+    getNewUsers(): Promise<IUser[]>;
+
+   // getUserPagination(searchObject: Partial<IUser> = {}, limit: number = 25, page: number = 1)
+        // : Promise<IPaginationResponse<IUser>>;
 }

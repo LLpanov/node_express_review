@@ -39,6 +39,7 @@ class CommentRepository extends Repository<Comment> implements ICommentRepositor
                 return queryRunner.update({ id: commentId }, { dislike: comment.dislike + 1 });
             }
         } catch ({ message }) {
+            // eslint-disable-next-line no-console
             console.log(message);
         }
     }

@@ -56,5 +56,9 @@ class UserService {
         }
         return userRepository.updateUserByParams(id, obj);
     }
+
+    public async getUserPagination(filterObject:any, page:number, perPage:number) {
+        return userRepository.getUserPagination(filterObject, +perPage, +page);
+    }
 }
 export const userService = new UserService();
