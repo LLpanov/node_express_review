@@ -14,6 +14,10 @@ class PostService {
     public async updatePostById(id:number, text:string):Promise<UpdateResult> {
         return postRepository.updatePostById(id, text);
     }
+
+    async getPostPagination(filterObject: any, page: number, perPage: number) {
+        return postRepository.getPostsPagination(filterObject, +page, +perPage);
+    }
 }
 
 export const postService = new PostService();

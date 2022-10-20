@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { UpdateResult } from 'typeorm';
 import { IPost } from '../entity';
 import { postService } from '../services';
@@ -20,6 +20,17 @@ class PostController {
         const { text } = req.body;
         const updatePost = await postService.updatePostById(Number(id), text);
         return res.json(updatePost);
+    }
+
+    public async getPostPagination(req:Request, res:Response, next:NextFunction) {
+        try {
+            const { page = 1, perPage = 25, ...other } = req.query;
+
+            const postPagination = await postService.getPostPagination(other, +page, +perPage);
+            res.json(postPagination);
+        } catch (e) {
+            next(e);
+        }
     }
 }
 export const postController = new PostController();

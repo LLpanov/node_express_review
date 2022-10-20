@@ -74,7 +74,7 @@ class UserRepository extends Repository<User> implements IUserRepository {
 
     public async getUserPagination(
         searchObject:Partial<IUser> = {},
-        limit:number,
+        limit:number = 25,
         page:number = 1,
     )
         : Promise<IPaginationResponse<IUser>> {
