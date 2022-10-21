@@ -1,4 +1,5 @@
 .env
-.gitIgnore
 package-lock.json
+ormconfig.json
 node_modules
+dist

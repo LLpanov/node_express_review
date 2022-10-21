@@ -9,8 +9,7 @@ import { actionTokenRepository } from '../repositories/actionToken/actionTokenRe
 import { ActionTokenTypes } from '../enums/actionTokenTypes.enums';
 
 class AuthController {
-    public async registration(req:Request, res:Response, next:NextFunction) {
-        try {
+    public async registration(req:Request, res:Response,) {
             const data = await authService.registration(req.body);
             res.cookie(
                 COOKIE.nameRefreshToken,
@@ -19,11 +18,8 @@ class AuthController {
                     maxAge: COOKIE.maxAgeRefreshToken,
                     httpOnly: true,
                 },
-
             );
-        } catch (e) {
-            next(e);
-        }
+
     }
 
     public async logout(req:IRequestExtended, res:Response):Promise<Response<string>> {
@@ -40,7 +36,8 @@ class AuthController {
 
             const { password } = req.body;
 
-            await emailService.sendEmail(email, EmailActionEnum.WELCOME_UTENOK, { userName: 'Katya' });
+            // await emailService.
+            // sendEmail(email, EmailActionEnum.WELCOME_UTENOK, { userName: 'Katya' });
             await userService.compareUserPassword(password, hashPassword);
 
             const { refreshToken, accessToken } = await
