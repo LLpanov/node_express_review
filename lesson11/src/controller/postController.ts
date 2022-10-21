@@ -25,7 +25,6 @@ class PostController {
     public async getPostPagination(req:Request, res:Response, next:NextFunction) {
         try {
             const { page = 1, perPage = 25, ...other } = req.query;
-
             const postPagination = await postService.getPostPagination(other, +page, +perPage);
             res.json(postPagination);
         } catch (e) {

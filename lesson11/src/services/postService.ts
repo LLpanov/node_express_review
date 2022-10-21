@@ -1,6 +1,8 @@
 import { UpdateResult } from 'typeorm';
+
 import { IPost } from '../entity';
 import { postRepository } from '../repositories/post/postRespository';
+import { userRepository } from '../repositories/user/userRepository';
 
 class PostService {
     public async getAllPosts():Promise<IPost[]> {
@@ -15,8 +17,8 @@ class PostService {
         return postRepository.updatePostById(id, text);
     }
 
-    async getPostPagination(filterObject: any, page: number, perPage: number) {
-        return postRepository.getPostsPagination(filterObject, +page, +perPage);
+    public async getPostPagination(filterObject:any, page:number, perPage:number) {
+        return userRepository.getUserPagination(filterObject, +perPage, +page);
     }
 }
 

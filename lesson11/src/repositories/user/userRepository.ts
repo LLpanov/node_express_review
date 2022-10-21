@@ -1,6 +1,5 @@
 import {
-    DeleteResult,
-    EntityRepository, getManager, Repository, UpdateResult,
+    DeleteResult, EntityRepository, getManager, Repository, UpdateResult,
 } from 'typeorm';
 
 import dayjs from 'dayjs';
@@ -65,13 +64,6 @@ class UserRepository extends Repository<User> implements IUserRepository {
             .update({ id }, user);
     }
 
-    public async getNewUsers(): Promise<IUser[]> {
-        return getManager().getRepository(User)
-            .createQueryBuilder('user')
-            .where('user.createdAt >= :date', { date: dayjs().utc().startOf('day').format() })
-            .getMany();
-    }
-
     public async getUserPagination(
         searchObject:Partial<IUser> = {},
         limit:number = 25,
@@ -89,6 +81,13 @@ class UserRepository extends Repository<User> implements IUserRepository {
             itemCount,
             data: users,
         };
+    }
+
+    public async getNewUsers(): Promise<IUser[]> {
+        return getManager().getRepository(User)
+            .createQueryBuilder('user')
+            .where('user.createdAt >= :date', { date: dayjs().utc().startOf('day').format() })
+            .getMany();
     }
 }
 export const userRepository = new UserRepository();

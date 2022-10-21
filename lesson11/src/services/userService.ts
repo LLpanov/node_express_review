@@ -1,5 +1,6 @@
 import { DeleteResult, UpdateResult } from 'typeorm';
 import bcrypt from 'bcrypt';
+
 import { IUser } from '../entity';
 import { userRepository } from '../repositories/user/userRepository';
 import { config } from '../config';

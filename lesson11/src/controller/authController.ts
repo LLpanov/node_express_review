@@ -19,6 +19,7 @@ class AuthController {
                     maxAge: COOKIE.maxAgeRefreshToken,
                     httpOnly: true,
                 },
+
             );
         } catch (e) {
             next(e);

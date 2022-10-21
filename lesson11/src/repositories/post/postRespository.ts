@@ -21,14 +21,17 @@ class PostRepository extends Repository<Post>implements IPostRepository {
             .update({ id }, { text });
     }
 
-    public async getPostsPagination(
-        searchObject: Partial<IPost> = {},
-        limit: number = 25,
-        page: number = 1,
-    ):Promise<IPaginationResponse<IPost>> {
+    public async getUserPagination(
+        searchObject:Partial<IPost> = {},
+        limit:number = 25,
+        page:number = 1,
+    )
+        : Promise<IPaginationResponse<IPost>> {
         const skip = limit * (page - 1);
-        const [posts, itemCount] = await getManager().getRepository(Post)
+        const [posts, itemCount] = await getManager()
+            .getRepository(Post)
             .findAndCount({ where: searchObject, skip, take: limit });
+
         return {
             page,
             perPage: limit,
