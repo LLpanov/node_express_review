@@ -9,17 +9,17 @@ import { actionTokenRepository } from '../repositories/actionToken/actionTokenRe
 import { ActionTokenTypes } from '../enums/actionTokenTypes.enums';
 
 class AuthController {
-    public async registration(req:Request, res:Response,) {
-            const data = await authService.registration(req.body);
-            res.cookie(
-                COOKIE.nameRefreshToken,
-                data.refreshToken,
-                {
-                    maxAge: COOKIE.maxAgeRefreshToken,
-                    httpOnly: true,
-                },
-            );
+    public async registration(req:Request, res:Response) {
+        const data = await authService.registration(req.body);
+        res.cookie(
+            COOKIE.nameRefreshToken,
+            data.refreshToken,
+            {
+                maxAge: COOKIE.maxAgeRefreshToken,
+                httpOnly: true,
+            },
 
+        ); return res.json(data);
     }
 
     public async logout(req:IRequestExtended, res:Response):Promise<Response<string>> {
