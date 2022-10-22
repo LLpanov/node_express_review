@@ -51,9 +51,10 @@ class UserService {
     }
 
     public async forgotPassword(id: number, obj: Partial<IUser>): Promise<object| undefined> {
-        if (obj.password) {
-            // eslint-disable-next-line no-param-reassign
-            obj.password = await this._hashPassword(obj.password);
+        const {password} = obj
+        console.log(password)
+        if(password){
+            await  userService._hashPassword(password)
         }
         return userRepository.updateUserByParams(id, obj);
     }

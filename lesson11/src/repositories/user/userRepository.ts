@@ -58,7 +58,7 @@ class UserRepository extends Repository<User> implements IUserRepository {
     }
 
     public async updateUserByParams(id: number, user: Partial<IUser>):
-        Promise<UpdateResult> {
+        Promise<Object> {
         return getManager()
             .getRepository(User)
             .update({ id }, user);

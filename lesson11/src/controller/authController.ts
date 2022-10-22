@@ -1,12 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
-import { authService, tokenService, userService } from '../services';
-import { constants, COOKIE, EmailActionEnum } from '../constans';
-import { IRequestExtended } from '../interfaces';
-import { IUser } from '../entity';
-import { tokenRepository } from '../repositories/token/tokenRepository';
-import { emailService } from '../services/emailSevice';
-import { actionTokenRepository } from '../repositories/actionToken/actionTokenRepository';
-import { ActionTokenTypes } from '../enums/actionTokenTypes.enums';
+import {NextFunction, Request, Response} from 'express';
+import {authService, emailService, tokenService, userService,} from '../services';
+import {constants, COOKIE, EmailActionEnum} from '../constans';
+import {IRequestExtended} from '../interfaces';
+import {IUser} from '../entity';
+import {tokenRepository} from '../repositories/token/tokenRepository';
+import {actionTokenRepository} from '../repositories/actionToken/actionTokenRepository';
+import {ActionTokenTypes} from "../enums/actionTokenTypes.enums";
 
 class AuthController {
     public async registration(req:Request, res:Response) {
@@ -36,8 +35,8 @@ class AuthController {
 
             const { password } = req.body;
 
-            // await emailService.
-            // sendEmail(email, EmailActionEnum.WELCOME_UTENOK, { userName: 'Katya' });
+            await emailService
+                .sendEmail(email, EmailActionEnum.WELCOME_UTENOK, { userName: 'Katya' });
             await userService.compareUserPassword(password, hashPassword);
 
             const { refreshToken, accessToken } = await
@@ -78,23 +77,21 @@ class AuthController {
         }
     }
 
-    // eslint-disable-next-line max-len
-    public async sendForgotPassword(req:IRequestExtended, res:Response, next:NextFunction):Promise<void> {
+
+    public async sendForgotPassword(req:IRequestExtended, res:Response, next:NextFunction) {
         try {
             const { email, id, firstName } = req.user as IUser;
+
             const token = tokenService.generateActionToken({ userId: id, userEmail: email });
-            // eslint-disable-next-line max-len
-            await actionTokenRepository.createActionToken({ actionToken: token, type: ActionTokenTypes.forgotPassword, userId: id });
+            console.log(token);
+           await actionTokenRepository.createActionToken({ actionToken: token, type: ActionTokenTypes.forgotPassword, userId: id });
+
             await emailService.sendEmail(email, EmailActionEnum.FORGOT_PASSWORD, {
                 token,
                 userName: firstName,
             });
 
-            res.json({
-                actionToken: token,
-                userName: firstName,
-                Result: 'OK',
-            });
+            res.status(204);
         } catch (e) {
             next(e);
         }
@@ -109,7 +106,7 @@ class AuthController {
             await actionTokenRepository.deleteByParams({ actionToken });
             await userService.forgotPassword(id, req.body);
 
-            res.sendStatus(204);
+            res.sendStatus(201);
         } catch (e) {
             next(e);
         }
