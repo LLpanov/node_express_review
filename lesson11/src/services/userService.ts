@@ -51,10 +51,9 @@ class UserService {
     }
 
     public async forgotPassword(id: number, obj: Partial<IUser>): Promise<object| undefined> {
-        const {password} = obj
-        console.log(password)
-        if(password){
-            await  userService._hashPassword(password)
+        if (obj.password) {
+            obj.password = await this._hashPassword(obj.password);
+
         }
         return userRepository.updateUserByParams(id, obj);
     }

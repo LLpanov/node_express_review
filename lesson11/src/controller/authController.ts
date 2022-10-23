@@ -5,7 +5,7 @@ import {IRequestExtended} from '../interfaces';
 import {IUser} from '../entity';
 import {tokenRepository} from '../repositories/token/tokenRepository';
 import {actionTokenRepository} from '../repositories/actionToken/actionTokenRepository';
-import {ActionTokenTypes} from "../enums/actionTokenTypes.enums";
+import {ActionTokenTypes} from '../enums/actionTokenTypes.enums';
 
 class AuthController {
     public async registration(req:Request, res:Response) {
@@ -61,7 +61,6 @@ class AuthController {
             const { id, email } = req.user as IUser;
             const refreshTokenDelete = req.get(constants.AUTHORIZATION);
             await tokenService.deleteTokenPairByParams({ refreshToken: refreshTokenDelete });
-
             const { accessToken, refreshToken } = await tokenService
                 .generateTokenPair({ userId: id, userEmail: email });
             await tokenRepository.createToken({ refreshToken, accessToken, userId: id });
@@ -77,22 +76,28 @@ class AuthController {
         }
     }
 
-
     public async sendForgotPassword(req:IRequestExtended, res:Response, next:NextFunction) {
         try {
             const { email, id, firstName } = req.user as IUser;
 
-            const token = tokenService.generateActionToken({ userId: id, userEmail: email });
-            console.log(token);
-           await actionTokenRepository.createActionToken({ actionToken: token, type: ActionTokenTypes.forgotPassword, userId: id });
+            const actionToken = tokenService.generateActionToken({ userId: id, userEmail: email });
+            console.log(actionToken);
+            await actionTokenRepository
+                .createActionToken({
+                    actionToken, type: ActionTokenTypes.forgotPassword, userId: id,
+                });
 
             await emailService.sendEmail(email, EmailActionEnum.FORGOT_PASSWORD, {
-                token,
+                actionToken,
                 userName: firstName,
             });
 
-            res.status(204);
-        } catch (e) {
+            res.json({
+                 actionToken,
+                user: req.user,
+                Result: 'generate new action token',
+            });
+        } catch (e:any) {
             next(e);
         }
     }
@@ -101,12 +106,13 @@ class AuthController {
          :Promise<void> {
         try {
             const { id } = req.user as IUser;
+
             const actionToken = req.get(constants.AUTHORIZATION);
 
-            await actionTokenRepository.deleteByParams({ actionToken });
             await userService.forgotPassword(id, req.body);
+            await actionTokenRepository.deleteByParams({ actionToken });
 
-            res.sendStatus(201);
+            res.json('password changed').status(200);
         } catch (e) {
             next(e);
         }

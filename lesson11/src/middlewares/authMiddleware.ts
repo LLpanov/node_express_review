@@ -1,11 +1,11 @@
-import {NextFunction, Response} from 'express';
-import {tokenService, userService} from '../services';
-import {IRequestExtended} from '../interfaces';
-import {tokenRepository} from '../repositories/token/tokenRepository';
-import {constants} from '../constans';
-import {ErrorHandler} from '../error/ErorrHandler';
-import {authValidator} from '../validators';
-import {actionTokenRepository} from '../repositories/actionToken/actionTokenRepository';
+import { NextFunction, Response } from 'express';
+import { tokenService, userService } from '../services';
+import { IRequestExtended } from '../interfaces';
+import { tokenRepository } from '../repositories/token/tokenRepository';
+import { constants } from '../constans';
+import { ErrorHandler } from '../error/ErorrHandler';
+import { authValidator } from '../validators';
+import { actionTokenRepository } from '../repositories/actionToken/actionTokenRepository';
 
 class AuthMiddleware {
     public async checkAccessToken(req: IRequestExtended, res: Response, next: NextFunction)
@@ -119,7 +119,7 @@ class AuthMiddleware {
 
     public checkValidPassword(req:IRequestExtended, res:Response, next:NextFunction) {
         try {
-            const { error, value } = authValidator.email.validate(req.body);
+            const { error, value } = authValidator.password.validate(req.body);
 
             if (error) {
                 next(new ErrorHandler(error.details[0].message, 404));
@@ -142,7 +142,7 @@ class AuthMiddleware {
                 next(new ErrorHandler('No token', 401));
                 return;
             }
-            const { userEmail} = await tokenService.verifyToken(actionToken, 'action');
+            const { userEmail } = await tokenService.verifyToken(actionToken, 'action');
 
             const tokenFromDB = await actionTokenRepository.findByParams({ actionToken });
 

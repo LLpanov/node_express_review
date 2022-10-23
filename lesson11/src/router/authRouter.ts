@@ -12,4 +12,3 @@ router.post('/forgotPassword', authMiddleware.checkValidEmail, userMiddleware.ch
 router.post('/forgotPassword/set', authMiddleware.checkValidPassword, authMiddleware.checkActionToken, authController.setNewPassword);
 
 export const authRouter = router;
-
