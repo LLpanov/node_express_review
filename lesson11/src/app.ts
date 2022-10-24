@@ -1,8 +1,9 @@
 import 'reflect-metadata';
 import express from 'express';
-import { createConnection } from 'typeorm';
+import {createConnection} from 'typeorm';
 
-import { apiRouter } from './router';
+import {apiRouter} from './router';
+import {cronRun} from "./cron";
 
 export const rootDir = __dirname;
 
@@ -31,7 +32,7 @@ app.listen(process.env.PORT, async () => {
         if (connection) {
             // eslint-disable-next-line no-console
             console.log('database connect');
-            // await cronRun();
+            await cronRun();
         }
     } catch ({ message }) {
         // eslint-disable-next-line no-console

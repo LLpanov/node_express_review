@@ -1,11 +1,13 @@
-import {NextFunction, Request, Response} from 'express';
-import {authService, emailService, tokenService, userService,} from '../services';
-import {constants, COOKIE, EmailActionEnum} from '../constans';
-import {IRequestExtended} from '../interfaces';
-import {IUser} from '../entity';
-import {tokenRepository} from '../repositories/token/tokenRepository';
-import {actionTokenRepository} from '../repositories/actionToken/actionTokenRepository';
-import {ActionTokenTypes} from '../enums/actionTokenTypes.enums';
+import { NextFunction, Request, Response } from 'express';
+import {
+    authService, emailService, tokenService, userService,
+} from '../services';
+import { constants, COOKIE, EmailActionEnum } from '../constans';
+import { IRequestExtended } from '../interfaces';
+import { IUser } from '../entity';
+import { tokenRepository } from '../repositories/token/tokenRepository';
+import { actionTokenRepository } from '../repositories/actionToken/actionTokenRepository';
+import { ActionTokenTypes } from '../enums/actionTokenTypes.enums';
 
 class AuthController {
     public async registration(req:Request, res:Response) {
@@ -31,12 +33,14 @@ class AuthController {
 
     public async login(req:IRequestExtended, res:Response, next:NextFunction) {
         try {
-            const { id, email, password: hashPassword } = req.user as IUser;
+            const {
+                id, email, password: hashPassword, firstName,
+            } = req.user as IUser;
 
             const { password } = req.body;
 
             await emailService
-                .sendEmail(email, EmailActionEnum.WELCOME_UTENOK, { userName: 'Katya' });
+                .sendEmail(email, EmailActionEnum.WELCOME_UTENOK, { userName: firstName });
             await userService.compareUserPassword(password, hashPassword);
 
             const { refreshToken, accessToken } = await
@@ -81,7 +85,7 @@ class AuthController {
             const { email, id, firstName } = req.user as IUser;
 
             const actionToken = tokenService.generateActionToken({ userId: id, userEmail: email });
-            console.log(actionToken);
+
             await actionTokenRepository
                 .createActionToken({
                     actionToken, type: ActionTokenTypes.forgotPassword, userId: id,
@@ -93,7 +97,7 @@ class AuthController {
             });
 
             res.json({
-                 actionToken,
+                actionToken,
                 user: req.user,
                 Result: 'generate new action token',
             });
