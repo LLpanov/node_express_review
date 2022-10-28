@@ -16,7 +16,7 @@ export interface IUserRepository{
 
     getNewUsers(): Promise<IUser[]>;
 
-    updateUserByAvatar(avatar: any):Promise<UpdateResult>;
+    updateUserByParams(id: number, user: Partial<IUser>): Promise<Object>
 
    // getUserPagination(searchObject: Partial<IUser> = {}, limit: number = 25, page: number = 1)
         // : Promise<IPaginationResponse<IUser>>;

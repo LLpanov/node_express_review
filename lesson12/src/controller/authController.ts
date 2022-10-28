@@ -1,4 +1,4 @@
-import {NextFunction, Request, Response} from 'express';
+import {NextFunction, Response} from 'express';
 import {UploadedFile} from 'express-fileupload';
 import {authService, emailService, s3Service, tokenService, userService,} from '../services';
 import {constants, COOKIE, EmailActionEnum} from '../constans';
@@ -9,16 +9,19 @@ import {actionTokenRepository} from '../repositories/actionToken/actionTokenRepo
 import {ActionTokenTypes} from '../enums/actionTokenTypes.enums';
 
 class AuthController {
-    public async registration(req: Request, res: Response, next: NextFunction) {
+    public async registration(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const createdUser = await userService.createUser(req.body);
+
             const avatar = req.files?.avatar as UploadedFile;
+
             if (avatar) {
-                const sentData = await s3Service.uploadFile(avatar, 'user', createdUser.id);
-                console.log(sentData.Location);
+                const sendData = await s3Service.uploadFile(avatar, 'user', createdUser.id);
+                const locationAvatar = sendData.Location as string;
+                console.log(locationAvatar);
+                await userService.updateByObject(createdUser.id,{avatar: locationAvatar });
             }
-            // upload photo
-            await userService.updateByAvatar(avatar);
+
             const tokenData = await authService.registration(createdUser);
 
             res.cookie(
@@ -126,7 +129,7 @@ class AuthController {
 
             const actionToken = req.get(constants.AUTHORIZATION);
 
-            await userService.forgotPassword(id, req.body);
+            await userService.updateByObject(id, req.body);
             await actionTokenRepository.deleteByParams({ actionToken });
 
             res.json('password changed').status(200);

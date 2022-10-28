@@ -11,7 +11,7 @@ export class S3Service {
     constructor() {
         this.Bucket = new S3({
             region: config.S3_REGION,
-            accessKeyId: config.SECRET_ACCESS_KEY,
+            accessKeyId: config.S3_ACCESS_KEY,
             secretAccessKey: config.S3_SECRET_KEY,
         });
     }

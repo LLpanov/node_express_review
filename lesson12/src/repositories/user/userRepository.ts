@@ -32,10 +32,6 @@ class UserRepository extends Repository<User> implements IUserRepository {
             .findOne({ id });
     }
 
-    public async updateUserByAvatar(avatar:any):Promise<UpdateResult> {
-        return getManager().getRepository(User).update({ avatar }, { avatar });
-    }
-
     public async updateUserById(id: number, password: string, email: string, avatar:string):
         Promise<UpdateResult> {
         return getManager()

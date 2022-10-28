@@ -30,10 +30,6 @@ class UserService {
         return userRepository.updateUserById(id, email, password, avatar);
     }
 
-    public async updateByAvatar(avatar:any):Promise<UpdateResult> {
-        return userRepository.updateUserByAvatar(avatar);
-    }
-
     public async deleteByUserId(id: number): Promise<DeleteResult> {
         return userRepository.deleteUserById(+id);
     }
@@ -54,7 +50,7 @@ class UserService {
         }
     }
 
-    public async forgotPassword(id: number, obj: Partial<IUser>): Promise<object| undefined> {
+    public async updateByObject(id: number, obj: Partial<IUser>): Promise<object| undefined> {
         if (obj.password) {
             /* eslint-disable no-param-reassign */
             obj.password = await this._hashPassword(obj.password);
