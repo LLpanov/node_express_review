@@ -1,14 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js" integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"
+            integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi"
+            crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SocketIO</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,17 +18,42 @@
     </style>
 </head>
 <body>
-<div style="display: flex;align-items: center;flex-direction: column" >
+<div style="display: flex;align-items: center;flex-direction: column">
     <h1>SocketIO</h1>
 </div>
 <div style="display: flex;flex-direction: column;align-items: center;">
     <button style="background: #ff6de8;width: 20%;cursor:pointer" id="sendMessage">Send</button>
 </div>
+<div>
+    <button style="background: #ff6de8;width: 20%;cursor:pointer" id="join1">join1 room</button>
+    <button style="background: #ff6de8;width: 20%;cursor:pointer" id="join2">join2 room</button>
+</div>
 
 
 <script>
-
     const socket = io('http://localhost:5600', {query: `userId=8&accessToken=122432`});
+    const btn = document.getElementById('sendMessage');
+    const join1 = document.getElementById('join1')
+    const join2 = document.getElementById('join2');
+    btn.onclick = () => {
+        socket.emit('message:create', {message: 'hello utenok'})
+
+    }
+    join1.onclick = () => {
+        socket.emit('join_room', {id: 1})
+
+    }
+    join2.onclick = () => {
+        socket.emit('join_room', {id: 2})
+
+    }
+    socket.on('message:get-all', (data) => {
+        console.log(data);
+    })
+
+    socket.on('user_join_room',(data) =>{
+        console.log(data);
+    })
 </script>
 </body>
 </html>
