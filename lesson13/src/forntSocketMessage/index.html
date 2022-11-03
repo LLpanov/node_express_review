@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+            integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+            crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        scroll-behavior: smooth;
+    }
+    .btn{
+        cursor: pointer;
+        font-size: 2em;
+        background: #3498db;
+        color: #fff;
+        border: 0.25rem solid #3498db;
+        padding: 0.85em 0.75em;
+        margin: 1rem;
+        position: relative;
+        z-index: 1;
+        overflow: hidden
+    }
+</style>
+<body>
+<form name="message" id="form-message">
+    <input type="text" id="input">
+    <button class="btn" id="sendMessage">Send</button>
+</form>
+<button  id="room-1">Join room 1</button>
+<button id="room-2">Join room 2</button>
+<button id="room-3">Join room 3</button>
+
+
+<script>
+    const {
+        accessToken,
+        user: {id}
+    } = JSON.parse(localStorage.getItem('user'));
+
+    const join1 = document.getElementById('join1');
+    const join2 = document.getElementById('join2');
+    const join3 = document.getElementById('join3');
+    const sendMessage = document.getElementById('sendMessage');
+
+    const socket = io('http://localhost:5600',
+        {query: `userId=${id}&accessToken=${accessToken}`});
+
+    join1.onclick = () => {
+        socket.emit('join_room', {id: 1});
+        document.getElementById('send-room-1').hidden = false;
+    };
+
+    join2.onclick = () => {
+        socket.emit('join_room', {id: 2});
+        document.getElementById('send-room-2').hidden = false;
+    };
+
+    join3.onclick = () => {
+        socket.emit('join_room', {id: 3});
+        document.getElementById('send-room-3').hidden = false;
+    };
+
+    sendMessage.onclick = (ev) => {
+        ev.preventDefault();
+        const message = document.getElementById('input').value;
+        const room1 = document.getElementById('room-1');
+        const room2 = document.getElementById('room-2');
+        const room3 = document.getElementById('room-3');
+
+
+        if (room1Check.checked) {
+            socket
+                .emit('message:send', {
+                    message,
+                    room: 1
+                });
+        }
+        if (room2Check.checked) {
+            socket
+                .emit('message:send', {
+                    message,
+                    room: 2
+                });
+        }
+        if (room3Check.checked) {
+            socket
+                .emit('message:send', {
+                    message,
+                    room: 3
+                });
+        }
+    };
+
+    socket.on('message:get-new-message', (data) => {
+        const {
+            message,
+            firstName,
+
+        } = data;
+
+        console.log(`${firstName}  ${message}`);
+
+    });
+
+    socket.on('user_join_room', (data) => {
+        console.log(data)
+    })
+</script>
+</body>
+</html>

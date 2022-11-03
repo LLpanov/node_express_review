@@ -11,6 +11,7 @@ import { actionTokenRepository } from '../repositories/actionToken/actionTokenRe
 import { ActionTokenTypes } from '../enums/actionTokenTypes.enums';
 
 class AuthController {
+    // eslint-disable-next-line consistent-return
     public async registration(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const createdUser = await userService.createUser(req.body);
