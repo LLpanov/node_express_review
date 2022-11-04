@@ -41,7 +41,7 @@ const teacherSchema = new Schema<ITeacher>({
 });
 
 teacherSchema.virtual('fullName').get(function () {
-    return this.firstName + ' '  + this.lastName + ' ' + 'Oktenweb ';
+    return `${this.firstName} ${this.lastName} Oktenweb `;
 });
 
 export const teacherModel = model('teacher', teacherSchema);

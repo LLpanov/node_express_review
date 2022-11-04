@@ -4,7 +4,7 @@ import { commentRouter } from './commentRouter';
 import { postRouter } from './postRouter';
 import { userRouter } from './userRouter';
 import { studentsRouter } from './studentsRouter';
-import {teacherRouter} from "./teacherRoter";
+import { teacherRouter } from './teacherRoter';
 
 const router = Router();
 router.use('/auth', authRouter);

@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import {teacherModel} from "./teacher";
+import { teacherModel } from './teacher';
 
 const { Schema, model } = mongoose;
 
@@ -27,11 +27,10 @@ const studentsSchema = new Schema<IStudents>({
 
     },
 
-    teacher:{
+    teacher: {
         type: mongoose.Schema.Types.ObjectId,
         ref: teacherModel,
         default: null,
-
 
     },
 
@@ -54,7 +53,7 @@ const studentsSchema = new Schema<IStudents>({
 });
 
 studentsSchema.virtual('fullName').get(function () {
-    return this.name + ' ' + 'Oktenweb ';
+    return `${this.name} Oktenweb `;
 });
 
 studentsSchema.pre('find', function () {

@@ -1,5 +1,5 @@
-import {NextFunction, Request, Response} from 'express';
-import {teacherModel} from '../models';
+import { NextFunction, Request, Response } from 'express';
+import { teacherModel } from '../models';
 
 class TeachersController {
     public async getAll(req:Request, res:Response, next:NextFunction):Promise<void> {
