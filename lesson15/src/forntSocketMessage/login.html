@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+</head>
+<body>
+<form>
+  <label>
+    <input type="text" id="email" placeholder="email">
+    <input type="text" id="password" placeholder="password">
+    <button id="submit">Login</button>
+  </label>
+</form>
+<script>
+  const login = document.getElementById('submit');
+  login.onclick = (ev) => {
+    ev.preventDefault();
+    const form = {
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
+    }}
+
+</script>
+</body>
+</html>
