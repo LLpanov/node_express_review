@@ -42,7 +42,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(apiRouter);
 
-mongoose.connect('mongodb://localhost:27017/express-node');
+mongoose.connect('mongodb://localhost:27017/express-node')
+    .then(() => console.log('MongoDB connected'))
+    .catch((error) => console.log(error));
 
 const { PORT } = process.env;
 
