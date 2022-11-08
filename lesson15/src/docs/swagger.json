@@ -10,6 +10,91 @@
     }
   },
   "paths": {
+    "/auth/login": {
+      "post": {
+        "description": "login",
+        "operationId": "auth",
+        "tags":["Authorization"],
+        "schemes": [],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "Authorization",
+            "in": "header",
+            "pattern": "Bearer ACCESS_TOKEN",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "email",
+            "in": "body",
+            "pattern": "@email.com",
+            "description": "this is email",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "password",
+            "in": "body",
+            "pattern": "12345678Qsc%",
+            "description": "this is password min 8 symbols",
+            "required": true
 
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "type": "string",
+                  "example": "141521asdafaafacAcasdw21"
+                },
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "firsName": {
+                        "type": "string",
+                        "example": "Harry"
+                      }
+                    }
+                  }
+                }
+
+              }
+
+            },
+            "description": "Successfully login response"
+
+          },
+          "400": {
+            "description": "Unify Error",
+            "schema": {
+              "$ref": "#/definitions/errorResponse"
+            }
+          }
+
+        }
+      }
+    }
+
+  },
+  "definitions": {
+    "errorResponse":{
+      "properties": {
+        "data": {
+          "type": "string"
+
+        },
+        "message": {
+          "type": "string",
+          "example": "Something went wrong",
+          "description": "Standard error response"
+        }
+      }
+      }
+    }
   }
-}
+
