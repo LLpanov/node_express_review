@@ -25,15 +25,14 @@ class StudentsController {
 
     public async setTeacher(req:Request, res:Response, next:NextFunction):Promise<void> {
         try {
-            console.log(req.params)
-            const setTeacher = await studentModel.findByIdAndUpdate(req.params.student_id,{teacher:"63657ed647b713e38623a7ff"},{new:true});
+            console.log(req.params);
+            const setTeacher = await studentModel.findByIdAndUpdate(req.params.student_id, { teacher: '63657ed647b713e38623a7ff' }, { new: true });
 
             res.json(setTeacher);
         } catch (e:any) {
             next(e);
         }
     }
-
 }
 
 export const studentsController = new StudentsController();

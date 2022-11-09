@@ -6,7 +6,7 @@ import { postRouter } from './postRouter';
 import { userRouter } from './userRouter';
 import { studentsRouter } from './studentsRouter';
 import { teacherRouter } from './teacherRoter';
-import * as docs from '../docs/swagger.json'
+import * as docs from '../docs/swagger.json';
 
 const router = Router();
 router.use('/docs', swaggerUi.serve, swaggerUi.setup(docs));
