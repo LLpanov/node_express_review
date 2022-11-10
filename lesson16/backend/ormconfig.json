@@ -1,0 +1,22 @@
+{
+  "type": "mysql",
+  "host": "db",
+  "port": 3306,
+  "username": "user",
+  "password": "user",
+  "database": "express_okten",
+  "synchronize": true,
+  "migrationsRun":true,
+  "logging": false,
+  "entities": [
+    "src/entity/**/*.ts"
+  ],
+  "migrations": [
+    "src/migrations/**/*.ts"
+  ],
+  "subscribers": [
+  ],
+  "cli": {
+    "migrationsDir": "src/migrations"
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "express-review-okten",
+    "description": "Documentation for express-okten test learn project (c) Leonid Panov",
+    "version": "0.0.1",
+    "contact": {
+      "email": "leomylord@gmail.com",
+      "name": "Leonid Panov"
+    }
+  },
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Login to platform",
+        "description": "login to user account",
+        "operationId": "auth",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Authorization"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "Authorization",
+            "in": "header",
+            "pattern": "Bearer ACCESS_TOKEN",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "example": "email@gmail.com"
+            },
+            "description": "this is email",
+            "required": true
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "example": "123ABcbc23%"
+            },
+            "description": "this is password min 8 symbols",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "description": "Authorization was succsesfully",
+              "properties": {
+                "tokens": {
+                  "$ref": "#/definitions/authUserResponse"
+                },
+                "usersId": {
+                  "type": "number",
+                  "example": "23"
+                },
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "username": {
+                        "type": "string",
+                        "example": "Harry"
+                      },
+                      "surname": {
+                        "type": "string",
+                        "example": "Potter"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "@gmail.com"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "New-York"
+                      },
+                      "age": {
+                        "type": "number",
+                        "example": 44
+                      },
+                      "proffesion": {
+                        "type": "string",
+                        "example": "Manchester"
+                      },
+                      "password": {
+                        "type": "string",
+                        "example": " min  8 symbol"
+                      }
+                    }
+                  }
+                }
+
+              }
+            },
+            "description": "Successfully login response"
+          },
+          "400": {
+            "description": "Unify Error",
+            "schema": {
+              "$ref": "#/definitions/errorResponse"
+            }
+          },
+          "401": {
+            "description": "wrong token or dead token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "something wrong with token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "summary": "Logout user",
+        "description": "logout platform",
+        "operationId": "auth-logout",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Authorization"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "type": "string",
+            "required": false,
+            "in": "header",
+            "pattern": "Bearer ACCESS_TOKEN"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/authUserResponse"
+            }
+          },
+          "400": {
+            "description": "Unify error",
+            "schema": {
+              "$ref": "#/definitions/errorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/registration": {
+      "post": {
+        "summary": "Regisration User",
+        "description": "Create users acount",
+        "operationId": "registration",
+        "tags": ["Registration"],
+        "parameters": [{
+          "name": "username",
+          "in": "body",
+          "schema": {
+            "type": "string",
+            "example": "Ivan"
+          },
+          "required": true
+        },{
+          "name": "surname",
+          "in": "body",
+          "schema": {
+            "type": "string",
+            "example": "Duda"
+          },
+          "required": true
+        },{
+          "name": "age",
+          "in": "body",
+          "schema": {
+            "type": "string",
+            "example": "44"
+
+          },
+          "required": false
+        },{
+          "name": "profession",
+          "in": "body",
+          "schema": {
+            "type": "string",
+            "example": "Software Engeniere"
+          },
+          "required": false
+        },{
+          "name": "city",
+          "in": "body",
+          "schema": {
+            "type": "string",
+            "example": "London"
+          }
+        }],
+        "responses": {
+          "200": {
+            "schema": {
+              "description": " Registration was succsesfully",
+              "properties": {
+                "tokens": {
+                  "$ref": "#/definitions/authUserResponse"
+                },
+                "user": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "username": {
+                        "type": "string",
+                        "example": "Harry"
+                      },
+                      "surname": {
+                        "type": "string",
+                        "example": "Potter"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "@gmail.com"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "New-York"
+                      },
+                      "age": {
+                        "type": "number",
+                        "example": 44
+                      },
+                      "proffesion": {
+                        "type": "string",
+                        "example": "Manchester"
+                      },
+                      "password": {
+                        "type": "string",
+                        "example": " min  8 symbol"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Create user acount"
+          },
+          "400": {
+            "description": "Unify error",
+            "schema": {
+              "$ref": "#/definitions/errorResponse"
+            }
+          }
+
+        }
+      }
+    }
+  },
+  "definitions": {
+    "authUserResponse": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "example": "$2b$fdsfsfskf983fjdskskldsad"
+        },
+        "refresh_token": {
+          "type": "string",
+          "example": "$43b$fdsfsfskf983fjdskskldsad"
+        }
+      }
+    },
+    "errorResponse": {
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string",
+          "example": "Something went wrong",
+          "description": "Standard error response"
+        }
+      }
+    }
+  }
+}
