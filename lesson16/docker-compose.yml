@@ -11,7 +11,7 @@ services:
       - ./backend:/app
       - /app/node_modules
     command: >
-      npm start
+      /wait-for-it.sh db:3306 -- npm start
   db:
     image: mysql:8.0
     ports:

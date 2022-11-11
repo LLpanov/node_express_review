@@ -2,15 +2,15 @@
   "name": "express-typeorm",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/app.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "start:dev": "nodemon app.ts",
     "build": "rimraf dist tsc --watch",
-    "start": "rimraf dist && copyfiles -f src/email-templates/*.* dist/email-template/ && copyfiles -f  src/docs/*.json dist/docs/ && tsc-watch --onSuccess \\\"npm run watch:server\\\"",
-    "watch:server": "nodemon 'src/app.ts' --watch './src'",
+    "start":  "rimraf dist && tsc-watch --onSuccess \"npm run watch:server\"",
+    "watch:server": "nodemon './src/app.ts' --watch './src'",
     "lint": "eslint --cache --ext .js,.ts src",
     "lint-fix": "npm run lint -- --fix",
     "typeorm": "node -r ts-node/register ./node_modules/typeorm/cli.js",
@@ -22,6 +22,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/dotenv": "^8.2.0",
     "aws-sdk": "^2.1239.0",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
