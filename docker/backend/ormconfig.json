@@ -4,7 +4,7 @@
   "port": 3306,
   "username": "user",
   "password": "user",
-  "database": "express-review",
+  "database": "express_okten",
   "synchronize": false,
   "migrationsRun":true,
   "logging": false,
